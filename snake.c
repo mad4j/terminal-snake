@@ -42,35 +42,35 @@
 
 /* OPTIONS (CHANGE THIS BIT) */
 
-#define SNAKE_WRAP		true	/* screen wrapping */
+#define SNAKE_WRAP		false	/* screen wrapping */
 #define SPEED			0.08	/* refresh rate (in seconds) */
-#define BONUS_CHANCE	400	/* chance of 1/CHANCE for bonus to appear */
+#define BONUS_CHANCE		400	/* chance of 1/CHANCE for bonus to appear */
 
-#define BONUS_MIN_TIME	30	/* lower range of lifespan of bonus */
-#define BONUS_MAX_TIME	120	/* upper range of lifespan of bonus*/
+#define BONUS_MIN_TIME		30	/* lower range of lifespan of bonus */
+#define BONUS_MAX_TIME		120	/* upper range of lifespan of bonus*/
 
-#define START_SNAKE_LEN	5	/* the beginning length of the snake */
+#define START_SNAKE_LEN		5	/* the beginning length of the snake */
 
-#define SNAKE_BODY		'*'	/* char representing the snake's body */
+#define SNAKE_BODY		'#'	/* char representing the snake's body */
 
 /* chars representing the snake head, when facing a direction  */
-#define SNAKE_HEAD_U	'v'	/* up */
-#define SNAKE_HEAD_D	'^'	/* down */
-#define SNAKE_HEAD_L	'>'	/* left */
-#define SNAKE_HEAD_R	'<'	/* right  */
+#define SNAKE_HEAD_U		'#'	/* up */
+#define SNAKE_HEAD_D		'#'	/* down */
+#define SNAKE_HEAD_L		'#'	/* left */
+#define SNAKE_HEAD_R		'#'	/* right  */
 
-#define FOOD			'@'	/* char representing food */
-#define BONUS			'$'	/* char representing */
+#define FOOD			'O'	/* char representing food */
+#define BONUS			'$'	/* char representing bonus */
 
 #define FOOD_SCORE		1	/* score increase when snake eats food */
 #define BONUS_SCORE		10	/* score increase when snake eats bonus */
 
-#define SCREEN_WIDTH	30	/* the virtual screen width */
-#define SCREEN_HEIGHT	20	/* the virtual screen height */
+#define SCREEN_WIDTH		25	/* the virtual screen width */
+#define SCREEN_HEIGHT		15	/* the virtual screen height */
 
-#define BORDER_CORNER	'+'	/* character at corners of border */
-#define BORDER_VERT		'|'	/* character for vertical border */
-#define BORDER_HORI		'-'	/* character for horizontal border */
+#define BORDER_CORNER		'#'	/* character at corners of border */
+#define BORDER_VERT		'#'	/* character for vertical border */
+#define BORDER_HORI		'#'	/* character for horizontal border */
 
 /* END OPTIONS (the rest is more dev stuff ) */
 
@@ -139,8 +139,9 @@ char getch(void) {
 	tcsetattr(0, TCSANOW, &old);
 
 	/* if ctrl-c was pressed, exit */
-	if(ch == 3)
+	if(ch == 3) {
 		exit(2);
+	}
 
 	return ch;
 } /* getch_() */
@@ -483,15 +484,15 @@ void snake_redraw(void) {
 	fflush(stdout);
 
 	/* top border */
-	printf("%s\n", border);
+	printf("%s%s\n", ANSI_RED, border);
 
 	/* print game state */
 	int i;
 	for(i = 0; i < SCREEN_HEIGHT; i++)
-		printf("%c%s%c\n", BORDER_VERT, game_state[i], BORDER_VERT);
+		printf("%s%c%s%s%s%c\n", ANSI_RED, BORDER_VERT, ANSI_GREEN, game_state[i], ANSI_RED, BORDER_VERT);
 
 	/* bottom border */
-	printf("%s\n", border);
+	printf("%s%s\n", ANSI_RED, border);
 
 	/* print score */
 	clr_line();
