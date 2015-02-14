@@ -10,8 +10,8 @@ SRC = snake.c
 $(NAME): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) $(LFLAGS) $(WARN) -o $(NAME)
 
-debug: $(SRC)
-	$(CC) $(CFLAGS) $(SRC) $(LFLAGS) $(WARN) -o $(NAME) -g -O0
+all: $(SRC)
+	$(CC) $(CFLAGS) $(SRC) $(LFLAGS) $(WARN) -o $(NAME) -O3
 
 clean: $(NAME)
 	rm $(NAME)
